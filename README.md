@@ -21,11 +21,15 @@ O LogiTrack é um sistema voltado para a modernização das operações de uma e
 5.  **Manutenibilidade:** A manutenibilidade é relevante para facilitar futuras evoluções do sistema, como melhorias nos algoritmos de otimização de rotas ou integração com novos serviços. Uma arquitetura bem estruturada e modular reduz o impacto de mudanças e facilita a correção de falhas, o que é importante para a manutenção contínua da solução.
 
 ### 1.3 Diagrama de Contexto (C4 Nível 1)
-[Insira aqui a imagem do seu Diagrama de Contexto (C4 Nível 1). Este diagrama deve mostrar o sistema como uma caixa preta e suas interações com usuários e outros sistemas externos. **Recomendado: Salvar o diagrama em `/diagrams` no GitHub e referenciar o link da imagem aqui.**]
+![Diagrama de Contexto - LogiTrack](./diagrams/context_diagram.png)
+
 
 ### 1.4 Classificação da Estratégia
--   **Classificação:** [Conservadora / Balanceada / Ousada]
--   **Justificativa:** [Explique em 5 linhas o porquê desta escolha em relação ao risco, inovação e maturidade tecnológica. Referencie o Capítulo 1 do Pressman sobre a natureza do software, se pertinente].
+-   **Classificação:** Balanceada
+-   **Justificativa:** A estratégia do LogiTrack é balanceada porque combina inovação no uso de dados em tempo real com tecnologias já consolidadas, como APIs de mapas e sistemas internos de logística. Essa abordagem reduz riscos de falhas críticas, mas ainda garante evolução tecnológica e escalabilidade. O sistema mantém confiabilidade para operações essenciais, sem ser conservador demais nem ousado em excesso.
+  
+### 1.5 Anexos
+![ADR_001 - LogiTrack](./adrs/ADR_001.png)
 
 ---
 
