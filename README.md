@@ -7,21 +7,26 @@
 ---
 
 ## CICLO 1: Visão e Requisitos (Fase 1)
-*Preencher e entregar no AVA ao final do Ciclo 1.*
 
 ### 1.1 Resumo do Cenário de Negócio
-O LogiTrack é um sistema voltado para a modernização das operações de uma empresa de logística, com foco na otimização de rotas e no gerenciamento eficiente de entregas. O problema central é a dificuldade em lidar com grandes volumes de dados geolocalizados e mudanças em tempo real, como trânsito, atrasos e falhas de comunicação. A arquitetura visa suportar o processamento contínuo dessas informações para melhorar a tomada de decisão operacional. Os principais usuários do sistema são gestores logísticos, motoristas da frota e equipes de operação. O sistema também integra serviços externos de mapas e sistemas internos de estoque. O objetivo de negócio é reduzir custos operacionais, aumentar a eficiência das entregas e melhorar a previsibilidade de chegada, garantindo alta performance, escalabilidade e resiliência da solução.
+
+O **LogiTrack** é um sistema projetado para modernizar as operações de uma empresa de logística que atualmente depende de **planejamento manual de rotas**, o que gera ineficiência, atrasos e dificuldade em cumprir *SLAs de entrega*. O **problema central** está na incapacidade de reagir rapidamente a variáveis dinâmicas, como trânsito, imprevistos operacionais e mudanças de prioridade nas entregas, impactando diretamente o desempenho operacional. A arquitetura proposta substitui esse modelo manual por uma solução baseada em **processamento de dados em tempo real**, permitindo a otimização contínua das rotas com base em grandes volumes de dados geolocalizados. Os principais usuários do sistema são **gestores logísticos**, **motoristas da frota** e **equipes operacionais**, que utilizam a plataforma para planejamento, execução e monitoramento das entregas. O sistema realiza **integração com APIs de mapas** (como Google Maps e OpenStreetMap) e com sistemas corporativos, como **ERP e controle de estoque**. O objetivo de negócio é **reduzir custos operacionais**, **melhorar o cumprimento de SLAs**, aumentar a eficiência das entregas e garantir maior previsibilidade, sustentado por uma arquitetura com foco em **performance, escalabilidade e resiliência**.
 
 ### 1.2 Atributos de Qualidade (RNFs) Priorizados
 
-1.  **Performance:** A performance é um requisito essencial para o LogiTrack, pois o sistema precisa processar dados de localização e recalcular rotas em tempo real. Caso as respostas sejam lentas, decisões operacionais importantes podem ser tomadas com base em informações desatualizadas. Do ponto de vista técnico, é necessário garantir baixa latência no processamento e na comunicação entre os serviços envolvidos.
-2.  **Escalabilidade:** A escalabilidade é importante para permitir que o sistema suporte o aumento do número de veículos, entregas e usuários sem perda significativa de desempenho. Como a empresa de logística pode crescer ao longo do tempo, a arquitetura deve permitir a expansão dos recursos de forma gradual, principalmente no processamento de dados geolocalizados.
-3.  **Resiliência:** A resiliência é um requisito prioritário devido à dependência de serviços externos, como APIs de mapas, e à instabilidade de redes de comunicação. O sistema deve continuar operando mesmo quando ocorrerem falhas parciais, evitando a interrupção total das operações logísticas. Arquiteturalmente, isso exige mecanismos de tolerância a falhas e recuperação automática.
-4.  **Confiabilidade:** A confiabilidade garante que as informações fornecidas pelo sistema, como status das entregas e previsões de chegada, sejam corretas e consistentes. Dados incorretos podem causar atrasos, retrabalho e decisões equivocadas por parte dos gestores. Portanto, o sistema deve garantir integridade e consistência das informações processadas.
-5.  **Manutenibilidade:** A manutenibilidade é relevante para facilitar futuras evoluções do sistema, como melhorias nos algoritmos de otimização de rotas ou integração com novos serviços. Uma arquitetura bem estruturada e modular reduz o impacto de mudanças e facilita a correção de falhas, o que é importante para a manutenção contínua da solução.
+1. **Performance:**  
+A performance é crítica porque o sistema substitui o *planejamento manual de rotas* por decisões automatizadas em tempo real. Em cenários com múltiplos veículos em trânsito, qualquer atraso no recálculo de rotas pode resultar em perda de janelas de entrega e quebra de *SLAs*. Do ponto de vista técnico, isso exige **baixa latência (< poucos segundos)** para ingestão de dados de GPS, processamento de eventos e resposta das APIs de roteirização, além de uso de **processamento assíncrono e cache de rotas** para evitar recomputações desnecessárias.
+2. **Escalabilidade:**  
+A escalabilidade é essencial porque o volume de dados cresce proporcionalmente ao número de veículos, entregas simultâneas e eventos de localização gerados continuamente. Em horários de pico (ex: início de rotas ou redistribuição de entregas), há picos intensos de processamento. A arquitetura deve suportar **escala horizontal**, permitindo adicionar instâncias de serviços de forma dinâmica, especialmente para componentes como **otimização de rotas e ingestão de telemetria**, evitando degradação de performance sob carga elevada.
+3. **Resiliência:**  
+A resiliência é prioritária devido à forte dependência de **APIs externas de mapas** e à variabilidade da conectividade dos dispositivos móveis dos motoristas. Falhas nesses pontos não podem interromper a operação logística. O sistema deve implementar **fallbacks (ex: uso de rotas previamente calculadas)**, **retry com backoff**, e mecanismos como **circuit breaker**, garantindo continuidade operacional mesmo com falhas parciais.
+4. **Confiabilidade:**  
+A confiabilidade é crítica porque decisões operacionais (ex: redirecionamento de veículos, comunicação com clientes) dependem diretamente da precisão das informações. Um erro na previsão de entrega ou no status pode gerar custos logísticos e insatisfação do cliente. Tecnicamente, isso exige **consistência dos dados de localização e status**, uso de **processamento idempotente**, além de mecanismos para evitar duplicidade ou perda de eventos no fluxo de dados.
+5. **Manutenibilidade:**  
+A manutenibilidade é importante porque o domínio do problema envolve evolução constante, como ajustes nos algoritmos de otimização e integração com novos sistemas (ex: novos ERPs ou provedores de mapas). Uma arquitetura pouco flexível aumentaria o custo e o risco dessas mudanças. Por isso, é necessário adotar **modularização clara (ex: microserviços ou serviços bem desacoplados)**, **contratos bem definidos entre componentes (APIs)** e **observabilidade**, permitindo identificar e corrigir falhas rapidamente sem impactar todo o sistema.
 
 ### 1.3 Diagrama de Contexto (C4 Nível 1)
-![Diagrama de Contexto - LogiTrack](./diagrams/context_diagram.png)
+![Diagrama de Contexto C4 Nível 1 2.0 - LogiTrack](./diagrams/context_diagram_c4_1_5.png)
 
 
 ### 1.4 Classificação da Estratégia
@@ -34,20 +39,41 @@ O LogiTrack é um sistema voltado para a modernização das operações de uma e
 ---
 
 ## CICLO 2: Blueprint e Decisões (Fase 2)
-*Preencher e entregar no AVA ao final do Ciclo 2.*
 
 ### 2.1 Diagrama de Containers (C4 Nível 2)
-[Insira aqui a imagem do seu Diagrama de Containers (C4 Nível 2). Este diagrama deve detalhar a estrutura interna do sistema, mostrando os principais containers (aplicações, bancos de dados, filas, etc.) e suas interações. **Recomendado: Salvar o diagrama em `/diagrams` no GitHub e referenciar o link da imagem aqui.**]
+![Diagrama de Contexto C4 Nível 2 - LogiTrack](./diagrams/context_diagram_c4_2.png)
 
 ### 2.2 Estilo Arquitetural Escolhido
-[Descreva o estilo arquitetural principal que você adotou (ex: Microsserviços, Monolito Modular, Hexagonal, Event-Driven) e justifique sua escolha com pelo menos 3 trade-offs reais (prós e contras) em relação aos RNFs priorizados na Fase 1. Referencie o Capítulo 14 do Pressman sobre estilos arquiteturais, se pertinente].
+
+O estilo arquitetural adotado para o **LogiTrack** é uma combinação de **Microsserviços** com **arquitetura orientada a eventos (Event-Driven Architecture)**. Essa escolha foi feita para atender diretamente aos requisitos não funcionais críticos do sistema, especialmente **performance, escalabilidade, resiliência e confiabilidade**, considerando o contexto de processamento em tempo real e alto volume de dados geolocalizados.
+
+No modelo de **microsserviços**, o sistema é dividido em serviços independentes (como otimização de rotas, rastreamento e notificações), cada um responsável por uma capacidade de negócio específica e passível de deploy independente. Já o uso de **eventos** (via mensageria) permite desacoplamento entre esses serviços, viabilizando processamento assíncrono e maior tolerância a falhas.
+
+#### Trade-offs Arquiteturais
+
+1. **Escalabilidade vs. Complexidade Operacional**  
+   - *Pró:* A arquitetura de microsserviços permite escalar apenas os componentes mais críticos (ex: serviço de otimização de rotas e rastreamento), atendendo picos de carga sem impactar todo o sistema.  
+   - *Contra:* Introduz maior complexidade operacional, exigindo gerenciamento de múltiplos serviços, deploy distribuído e observabilidade mais sofisticada.
+
+2. **Resiliência vs. Consistência de Dados**  
+   - *Pró:* O uso de arquitetura orientada a eventos (com mensageria) aumenta a resiliência, pois falhas em um serviço não interrompem imediatamente os demais, permitindo reprocessamento de eventos e tolerância a falhas parciais.  
+   - *Contra:* Pode levar a **consistência eventual**, o que significa que nem todos os dados estarão sincronizados em tempo real, exigindo cuidados adicionais na modelagem e tratamento de estados.
+
+3. **Performance em Tempo Real vs. Sobrecarga de Comunicação**  
+   - *Pró:* A separação de responsabilidades e o uso de processamento assíncrono permitem respostas rápidas para operações críticas, como atualização de localização e cálculo de rotas.  
+   - *Contra:* A comunicação entre serviços (via rede e broker) adiciona overhead, podendo impactar latência se não houver estratégias como cache, batching ou otimização de payloads.
+
+4. **Manutenibilidade vs. Complexidade de Desenvolvimento**  
+   - *Pró:* Serviços desacoplados facilitam manutenção, evolução de funcionalidades e substituição de tecnologias sem afetar todo o sistema.  
+   - *Contra:* Aumenta a complexidade no desenvolvimento, exigindo definição clara de contratos (APIs/eventos), versionamento e testes distribuídos.
+
+#### Fundamentação\
+Conforme Pressman (2016) em *Engenharia de Software*, estilos arquiteturais devem ser escolhidos com base nos atributos de qualidade desejados. A combinação de **microsserviços** e **event-driven** é adequada para sistemas distribuídos, orientados a dados e que exigem alta escalabilidade e resiliência, características centrais do LogiTrack.
 
 ### 2.3 Architecture Decision Record (ADR) Principal
-[Escolha uma decisão arquitetural crucial que você tomou nesta fase (ex: Escolha da Tecnologia de Persistência, Estratégia de Comunicação entre Microsserviços) e documente-a como um ADR. **Recomendado: Criar o arquivo `.md` do ADR em `/adrs` no GitHub e referenciar o link aqui.**]
--   **Título:** [Ex: Escolha da Tecnologia de Persistência]
--   **Contexto:** [O problema ou necessidade técnica que levou a essa decisão. Qual era o cenário?]
--   **Decisão:** [O que foi decidido. Qual tecnologia/abordagem foi escolhida?]
--   **Justificativa:** [Por que esta opção venceu as alternativas? Quais foram os trade-offs considerados? Quais os impactos nos RNFs?]
+
+ADR selecionado:
+[ADR-001: Estratégia de Comunicação entre Microsserviços](./adrs/ADR-001-comunicacao-event-driven.md)
 
 ---
 
