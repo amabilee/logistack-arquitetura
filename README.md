@@ -26,7 +26,7 @@ A confiabilidade é crítica porque decisões operacionais (ex: redirecionamento
 A manutenibilidade é importante porque o domínio do problema envolve evolução constante, como ajustes nos algoritmos de otimização e integração com novos sistemas (ex: novos ERPs ou provedores de mapas). Uma arquitetura pouco flexível aumentaria o custo e o risco dessas mudanças. Por isso, é necessário adotar **modularização clara (ex: microserviços ou serviços bem desacoplados)**, **contratos bem definidos entre componentes (APIs)** e **observabilidade**, permitindo identificar e corrigir falhas rapidamente sem impactar todo o sistema.
 
 ### 1.3 Diagrama de Contexto (C4 Nível 1)
-![Diagrama de Contexto C4 Nível 1 2.0 - LogiTrack](./diagrams/context_diagram_c4_1_5.png)
+![Diagrama de Contexto C4 Nível 1 2.0 - LogiTrack](./diagrams/context_diagram_c4_1_2.png)
 
 
 ### 1.4 Classificação da Estratégia
