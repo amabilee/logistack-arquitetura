@@ -32,9 +32,6 @@ A manutenibilidade é importante porque o domínio do problema envolve evoluçã
 ### 1.4 Classificação da Estratégia
 -   **Classificação:** Balanceada
 -   **Justificativa:** A estratégia do LogiTrack é balanceada porque combina inovação no uso de dados em tempo real com tecnologias já consolidadas, como APIs de mapas e sistemas internos de logística. Essa abordagem reduz riscos de falhas críticas, mas ainda garante evolução tecnológica e escalabilidade. O sistema mantém confiabilidade para operações essenciais, sem ser conservador demais nem ousado em excesso.
-  
-### 1.5 Anexos
-![ADR_001 - LogiTrack](./adrs/ADR_001.png)
 
 ---
 
